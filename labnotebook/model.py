@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Sequence,  DateTime, Float, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.postgresql import JSONB, JSON
+from sqlalchemy.dialects.sqlite import JSON
 
 from labnotebook import Base
 
@@ -12,7 +12,7 @@ class Experiment(Base):
     dt = Column(DateTime, nullable=False)
     duration = Column(Integer, nullable=True) # in seconds
     gpu = Column(Integer)
-    model_desc = Column(JSONB, nullable=True)
+    model_desc = Column(JSON, nullable=True)
     final_trainloss = Column(Float, nullable=True)
     final_trainacc = Column(Float, nullable=True)
     final_valacc = Column(Float, nullable=True)
@@ -37,7 +37,7 @@ class TrainingStep(Base):
     valacc = Column(Float, nullable=True)
     
     epoch = Column(Integer, nullable=True)
-    custom_fields = Column(JSONB, nullable=True)
+    custom_fields = Column(JSON, nullable=True)
 
     def __repr__(self):
         return 'Step {} of run {}'.format(self.timestep, self.run_id)
